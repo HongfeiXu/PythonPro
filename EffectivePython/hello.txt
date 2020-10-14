@@ -1,0 +1,160 @@
+# -*- coding: utf-8 -*-
+
+import os
+
+# 第一章 用Pythonic方式来思考
+
+#--------------------------------------
+# 第1条：确认自己所使用的Python版本
+# import this
+
+#--------------------------------------
+# 第2条：遵循PEP 8风格指南
+
+# if not a is b		坏
+# if a is not b		好
+
+# if len(somelist) == 0		坏
+# if not somelist			好
+
+# 不要编写单行的if语句、for循环、while循环、except复合语句
+
+# import 放在文件开头
+
+# 引入模块时，使用绝对名称
+
+# import语句分为三个部分：标准库模块、第三方模块、自用模块，每部分中，按照模块的字母顺序排列
+
+#--------------------------------------
+# 第3条：了解bytes、str与unicode的区别
+
+# Python3: bytes, str
+
+# Python2: str, unicode
+
+def to_unicode(unicode_or_str):
+	if isinstance(unicode_or_str, str):
+		value = unicode_or_str.decode("utf-8")
+	else:
+		value = unicode_or_str
+	return value	# Instance of unicode
+
+def to_str(unicode_or_str):
+	if isinstance(unicode_or_str, unicode):
+		value = unicode_or_str.encode("utf-8")
+	else:
+		value = unicode_or_str
+	return value	# Instance of str
+
+# 注：Python2 中，若str只包含7位ASCII字符，则unicode和str实例似乎就成了同一种类型
+# 可以用+号连接这种str与unicode
+# 可以用等价与不都能加操作符
+# 可以用'%s'等形式来代表unicode实例
+
+with open("random.bin", "w") as f:
+	f.write(os.urandom(10))
+
+#--------------------------------------
+# 第4条：用辅助函数来取代复杂的表达式
+
+def get_first_int(values, key, default=0):
+	found = values.get(key, [""])
+	if found[0]:
+		found = int(found[0])
+	else:
+		found = default
+	return found
+
+#--------------------------------------
+# 第5条：了解切割序列的办法
+
+a = [1,2,3]
+b = a[:]
+assert b == a and b is not a	# 原列表的拷贝
+
+b = a
+print "Before {}".format(a)
+a[:] = [101, 102, 103]
+assert a is b				# Still the same list object
+print "After {}".format(a)	# Now has different contents
+
+#--------------------------------------
+# 第6条：在单次切片操作内，不要同时指定start、end和stride
+
+a =  ["red", "orange", "yellow", "green", "blue", "purple"]
+odds = a[::2]
+evens = a[1::2]
+print odds
+print evens
+
+x = "mongoose"	# 翻转字符串，对字符串和ASCII字符有用，
+y = x[::-1]
+print y
+
+w = u"谢谢"		# 但对于已经编码成UTF-8字符串的Unicode字符无效
+x = w.encode("utf-8")
+y = x[::-1]
+# z = y.decode("utf-8")	# UnicodeDecodeError
+
+a = ["a", "b", "c", "d", "e", "f", "g", "h"]	# 拆解为两条赋值语句，一条范围切割，一条步进操作
+b = a[::2]
+c = b[1:-1]
+print c
+
+#--------------------------------------
+# 第7条：用列表推到来取代map和filter（更清晰，无需编写lambda表达式）
+
+a = [1,2,3,4,5,6,7,8,9,10]
+squares = [x**2 for x in a]
+print squares
+squares = map(lambda x: x**2, a)
+
+even_squares = [x**2 for x in a if x % 2 == 0]
+print even_squares
+alt = map(lambda x: x**2, filter(lambda x: x % 2 == 0, a))
+assert even_squares == list(alt)
+
+# dict和set也有列表类似的推到机制
+
+chile_ranks = {"ghost": 1, "habanero": 2, "cayenne": 3}
+rank_dict = {rank: name for name, rank in chile_ranks.iteritems()}
+print rank_dict
+chile_len_set = {len(name) for name in rank_dict.itervalues()}
+print chile_len_set
+# {1: 'ghost', 2: 'habanero', 3: 'cayenne'}
+# set([8, 5, 7])
+
+#--------------------------------------
+# 第8条：不要使用含有两个以上表达式的列表推导
+# 可以使用两个条件、两个循环、或一个条件搭配一个循环
+
+matrix = [[1,2,3],[4,5,6],[7,8,9]]
+flat = [x for row in matrix for x in row]			# 多重循环的用法
+print flat
+# [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+squared = [[x**2 for x in row] for row in matrix]	# 多重循环的用法
+print squared
+
+a = [1,2,3,4,5,6,7,8,9,10]
+b = [x for x in a if x > 4 if x % 2 == 0]
+c = [x for x in a if x > 4 and x % 2 == 0]
+print b
+assert b == c
+
+matrix = [[1,2,3],[4,5,6],[7,8,9]]
+filtered = [[x for x in row if x % 3 == 0]			# 晦涩难懂
+			for row in matrix if sum(row) >= 10]
+print filtered
+
+#--------------------------------------
+# 第9条：用生成器表达式来改写数据量较大的列表推导
+
+
+
+
+
+
+
+
+
