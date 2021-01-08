@@ -8,8 +8,6 @@
 # version    ：python 3.7
 # Description：SocketServer时间戳TCP服务器：通过使用SocketServer类、TCPServer和StreamRequestHandler，该脚本创建了一个时间戳服务器
 """
-
-
 from socketserver import TCPServer as TCP, StreamRequestHandler as SRH
 from time import ctime
 
