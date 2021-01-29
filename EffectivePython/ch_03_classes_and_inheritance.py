@@ -171,7 +171,7 @@ class BetterCountMissing(object):
 	def __init__(self):
 		self.added = 0
 
-	def __call__(self):	# __call__方法强烈地按时这个类的用途，告诉我们这个类就相当于一个带有状态的闭包
+	def __call__(self):	# __call__方法强烈地暗示这个类的用途，告诉我们这个类就相当于一个带有状态的闭包
 		self.added += 1
 		return 0
 
@@ -189,6 +189,6 @@ for key, amount in increments:
 print("result = {}, counter.added = {}".format(dict(result), counter.added))
 
 
-#--------------------------------------
-# 第24条：以@classmethod形式的多态去通用地构建对象
+
+
 
