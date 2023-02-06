@@ -9,11 +9,11 @@ def convert_gb2312_to_utf_8(file_path):
 	file_data = None
 	try:
 		with open(file_path, "r", encoding="GB2312") as f:
-			file_data = f.read() # 读取以gb2312编码的字符串到字节序列
+			file_data = f.read() # 读取以gb2312编码的字符串到str
 	except UnicodeDecodeError:
 		return
 	with open(file_path, "w", encoding="utf-8") as f:
-		f.write(file_data)      # 将字节序列编码为utf-8
+		f.write(file_data)      # 将str编码为utf-8
 	print("convert_gb2312_to_utf_8 finish!")
 
 
