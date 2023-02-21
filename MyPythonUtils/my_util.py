@@ -1,8 +1,5 @@
 import os
 
-target_file = r"E:\BooksLearn\LeetCode\README.md"
-dir = r"E:\BooksLearn\LeetCode"
-
 
 def convert_gb2312_to_utf_8(file_path):
 	print("convert_gb2312_to_utf_8 start")
@@ -25,5 +22,8 @@ def convert_gb2312_to_utf_8_dir(dir):
 
 
 if __name__ == "__main__":
+	target_file = r"E:\BooksLearn\LeetCode\README.md"
+	dir = r"E:\BooksLearn\LeetCode"
+	convert_gb2312_to_utf_8(target_file)
 	convert_gb2312_to_utf_8_dir(dir)
 
